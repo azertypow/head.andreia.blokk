@@ -1,5 +1,5 @@
 import {initializeApp} from "firebase/app"
-import {get, getDatabase, ref, set} from "firebase/database"
+import {getDatabase, onValue, ref, set} from "firebase/database"
 
 export class FireBaseConnection {
     
@@ -17,8 +17,15 @@ export class FireBaseConnection {
     public readonly databaseRef = ref(this.dataBase, 'players')
 
     constructor() {
+        // todo: https://firebase.google.com/docs/database/web/read-and-write
+
         set(this.databaseRef, {
-            coucou: 'hello'
+            id: '02'
+        })
+
+        onValue(this.databaseRef, snapshot => {
+            const data = snapshot.val()
+            console.log( data )
         })
     }
 
