@@ -1,4 +1,4 @@
-import { fireBaseConnection } from './scripts/mains'
+import { FireBaseConnection } from './scripts/mains'
 import './style/style.css'
 
-fireBaseConnection()
+new FireBaseConnection()
