@@ -2,8 +2,7 @@ import {initializeApp} from "firebase/app"
 import {getDatabase, onValue, ref, set} from "firebase/database"
 
 export class FireBaseConnection {
-    
-    public readonly app = initializeApp({
+    app = initializeApp({
         apiKey: "AIzaSyBAlCbGVd8YeRRWwj6RmrRz2qNrWt0G9Lk",
         authDomain: "head-creativecoding-andreia.firebaseapp.com",
         databaseURL: "https://head-creativecoding-andreia-default-rtdb.europe-west1.firebasedatabase.app",
@@ -13,22 +12,19 @@ export class FireBaseConnection {
         appId: "1:14072775597:web:73ae9680cdf3f69fe21724"
     })
 
-    public readonly dataBase = getDatabase(this.app)
-    public readonly databaseRef = ref(this.dataBase, 'players')
-
     constructor() {
         // todo: https://firebase.google.com/docs/database/web/read-and-write
-
-        set(this.databaseRef, {
-            id: '02'
-        })
-
-        onValue(this.databaseRef, snapshot => {
-            const data = snapshot.val()
-            console.log( data )
-        })
+        writeUserData()
     }
 
+    writeUserData(userId, name, email, imageUrl) {
+        const db = getDatabase(this.app);
+        set(ref(db, 'users/' + userId), {
+            username: name,
+            email: email,
+            profile_picture : imageUrl
+        });
+    }
     
 
 }
